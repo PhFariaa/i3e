@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn.impute import SimpleImputer
+import time
 
 imdb_df = pd.read_csv("imdb_clean.csv")
 
@@ -47,8 +48,6 @@ plt.show()
 X = imdb_df.loc[: , imdb_df.columns != 'notas'].values
 y = imdb_df["notas"].values
 
-print(len(imdb_df.columns))
-
 from sklearn.model_selection import train_test_split
 XTrain, XTeste, yTrain, yTest = train_test_split(X, y, test_size = 0.15)
 
@@ -60,3 +59,10 @@ from sklearn import decomposition
 pca = decomposition.PCA(n_components=2)
 XTrain = pca.fit_transform(XTrain)
 XTeste = pca.transform(XTeste)
+
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression(solver= 'lbfgs')
+start_time = time.perf_counter()
+model.fit(XTrain, yTrain)
+end_time = time.perf_counter()
+print(end_time - start_time)
