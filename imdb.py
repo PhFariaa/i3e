@@ -44,7 +44,7 @@ plt.bar(eixo_x, eixo_y)
 plt.ylabel('Dinheiro gasto em Milhoes')
 plt.xlabel('Generos')
 plt.title('Dinheiro gasto por genero de filme')
-#plt.show()
+plt.show()
 
 dataframe_dados_num = imdb_df.copy()
 dataframe_dados_num = dataframe_dados_num.drop('titulo', axis=1)
