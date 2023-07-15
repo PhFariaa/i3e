@@ -48,7 +48,7 @@ plt.title('Dinheiro gasto por genero de filme')
 
 dataframe_dados_num = imdb_df.groupby('duracao')[['notas', 'Money(M)']]
 
-X = dataframe_dados_num.loc[:, dataframe_dados_num != 'notas'].values
+X = dataframe_dados_num.loc[:, dataframe_dados_num != 'notas'].values #errozinho aqui que eu nao consegui consertar
 y = imdb_df["notas"].values
 
 from sklearn.model_selection import train_test_split
