@@ -44,25 +44,36 @@ plt.bar(eixo_x, eixo_y)
 plt.ylabel('Dinheiro gasto em Milhoes')
 plt.xlabel('Generos')
 plt.title('Dinheiro gasto por genero de filme')
-plt.show()
-X = imdb_df.loc[: , imdb_df.columns != 'notas'].values
+#plt.show()
+
+dataframe_dados_num = imdb_df.groupby('duracao')[['notas', 'Money(M)']]
+
+X = dataframe_dados_num.loc[:, dataframe_dados_num != 'notas'].values
 y = imdb_df["notas"].values
 
 from sklearn.model_selection import train_test_split
+
 XTrain, XTeste, yTrain, yTest = train_test_split(X, y, test_size = 0.15)
 
 from sklearn.preprocessing import StandardScaler
+
 scale_obj = StandardScaler()
 X = scale_obj.fit_transform(X.astype(float))
 
 from sklearn import decomposition
+
 pca = decomposition.PCA(n_components=2)
 XTrain = pca.fit_transform(XTrain)
 XTeste = pca.transform(XTeste)
 
 from sklearn.linear_model import LogisticRegression
+
 model = LogisticRegression(solver= 'lbfgs')
 start_time = time.perf_counter()
 model.fit(XTrain, yTrain)
 end_time = time.perf_counter()
 print(end_time - start_time)
+
+regressor = linear_model.LinearRegression()
+regressor.fit(XTrain, yTrain)
+yPred = regressor.predict(XTeste, yTest)
