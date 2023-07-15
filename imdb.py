@@ -46,10 +46,13 @@ plt.xlabel('Generos')
 plt.title('Dinheiro gasto por genero de filme')
 #plt.show()
 
-dataframe_dados_num = imdb_df.groupby('duracao')[['notas', 'Money(M)']]
+dataframe_dados_num = imdb_df.copy()
+dataframe_dados_num = dataframe_dados_num.drop('titulo', axis=1)
+dataframe_dados_num = dataframe_dados_num.drop('genero', axis=1)
+dataframe_dados_num = dataframe_dados_num.drop('ano de lancamento', axis=1)
 
-X = dataframe_dados_num.loc[:, dataframe_dados_num != 'notas'].values #errozinho aqui que eu nao consegui consertar
-y = imdb_df["notas"].values
+X = dataframe_dados_num.loc[dataframe_dados_num!='notas'].values
+y = dataframe_dados_num["notas"].values
 
 from sklearn.model_selection import train_test_split
 
